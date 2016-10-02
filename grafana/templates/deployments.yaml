@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "asia.gcr.io/orange-sys/alpine-grafana:{{.Values.imageTag}}"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+          requests:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: grafana-config
+          mountPath: /grafana/conf
+      volumes:
+      - name: grafana-config
+        configMap:
+          name: {{ template "fullname" . }}

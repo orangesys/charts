@@ -1,0 +1,6 @@
+Getting Started:
+
+influxdb can be accessed via port 8086 on the following DNS name from within your cluster:
+{{ template "fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+
+To connect to your database:

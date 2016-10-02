@@ -1,0 +1,76 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      ### https://github.com/kubernetes/kubernetes/issues/26309
+      ### fix bug in kong 0.10 maybe
+      ### use go-dnsmasq in pod
+      - name: go-dnsmasq
+        image: "janeczku/go-dnsmasq:release-1.0.6"
+        args:
+          - --listen
+          - "127.0.0.1:53"
+          - --default-resolver
+          - --append-search-domains
+          - --hostsfile=/etc/hosts
+      - name: {{ template "fullname" . }}
+        image: "asia.gcr.io/orange-sys/alpine-kong:{{.Values.imageTag}}"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+          requests:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+        env:
+          - name: KONG_DATABASE
+            value: {{ default "postgres" .Values.kongDatabase | quote }}
+          - name: KONG_PG_HOST
+            value: {{ template "postgres.fullname" . }}
+        ports :
+        - name: admin
+          containerPort: 8001
+          protocol: TCP
+        - name: proxy
+          containerPort: 8000
+          protocol: TCP
+        - name: proxy-ssl
+          containerPort: 8443
+          protocol: TCP
+        - name: serf
+          containerPort: 7946
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 8001
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+#        volumeMounts:
+#        - name: kong-config
+#          mountPath: /etc/kong
+#      volumes:
+#        - name: kong-config
+#          configMap:
+#            name: kong-config

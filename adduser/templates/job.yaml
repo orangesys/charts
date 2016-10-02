@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{.Release.Service | quote }}
+    release: {{.Release.Name | quote }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+spec:
+  template:
+    metadata:
+      name: {{ template "fullname" . }}
+      labels:
+        heritage: {{.Release.Service | quote }}
+        release: {{.Release.Name | quote }}
+        chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: {{ template "fullname" . }}
+        image: asia.gcr.io/orange-sys/alpine-job:0.1.0
+        env:
+        - name: READ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "influxdb.fullname" . }}
+              key: read-password
+        command: ["/bin/sh", "-c"]
+        args:
+          # FIXME use kubernetes probe instead of "until curl"
+          - >
+            KEY=$(python -c "import uuid; print str(uuid.uuid4()).replace('-', '')");
+            SECRET=$(python -c "import uuid; print str(uuid.uuid4()).replace('-', '')");
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis \
+              name={{ template "influxdb.fullname" . }} \
+              upstream_url=http://{{ template "influxdb.fullname" . }}.default/ \
+              request_host={{ .Release.Name }}.i.orangesys.io ;
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
+              name=jwt ;
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers \
+              username={{ .Release.Name }};
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers/{{ .Release.Name }}/jwt \
+              key=${KEY} \
+              secret=${SECRET}
