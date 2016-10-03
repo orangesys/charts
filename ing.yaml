@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: i-orangesys-io-ingress
+  namespace: apigateway
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: pqaxel.i.orangesys.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: orangesys-kong-proxy
+          servicePort: 80
+  - host: ahyawk.g.orangesys.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ahyawk-grafana
+          servicePort: 3000

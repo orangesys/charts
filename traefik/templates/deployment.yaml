@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+    spec:
+      terminationGracePeriodSeconds: 60
+      restartPolicy: Always
+      containers:
+      - name: {{ template "fullname" . }}
+        image: traefik:{{.Values.imageTag}}
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+          requests:
+            cpu: "{{.Values.cpu}}"
+            memory: "{{.Values.memory}}"
+        ports:
+        - name: http
+          containerPort: 80
+          hostPort: 80
+        - name: https
+          containerPort: 443
+          hostPort: 443
+        - name: admin
+          containerPort: 8080
+        args:
+        - --configfile=/config/traefik.toml
+        - --web
+        - --kubernetes
+        - --logLevel=ERROR
+        volumeMounts:
+          - mountPath: "/etc/traefik/acme"
+            name: traefik-acme
+          - mountPath: "/config"
+            name: config-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "fullname" . }}
+        - name: traefik-acme
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ template "fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}

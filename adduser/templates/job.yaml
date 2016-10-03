@@ -20,11 +20,11 @@ spec:
       - name: {{ template "fullname" . }}
         image: asia.gcr.io/orange-sys/alpine-job:0.1.0
         env:
-        - name: READ_PASSWORD
+        - name: WRITE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ template "influxdb.fullname" . }}
-              key: read-password
+              key: write-password
         command: ["/bin/sh", "-c"]
         args:
           # FIXME use kubernetes probe instead of "until curl"
@@ -37,6 +37,15 @@ spec:
               request_host={{ .Release.Name }}.i.orangesys.io ;
             http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
               name=jwt ;
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
+              name=correlation-id \
+              config.header_name=Orangesys-Request-ID \
+              config.generator="uuid#counter" \
+              config.echo_downstream=false;
+            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
+              name=request-transformer \
+              config.remove.querystring=jwt \
+              config.add.querystring="u:_write,p:${WRITE_PASSWORD}";
             http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers \
               username={{ .Release.Name }};
             http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers/{{ .Release.Name }}/jwt \

@@ -10,8 +10,8 @@ metadata:
 spec:
   ports:
   - name: influxdbhttp
-    port: 8086
+    port: 80
     targetPort: 8086
   selector:
     app: {{ template "fullname" . }}
-    version: "{{ .Values.imageTag }}"  
+    version: "{{ .Values.imageTag }}"

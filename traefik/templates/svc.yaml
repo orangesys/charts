@@ -8,10 +8,12 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
+  type: LoadBalancer
   ports:
-  - name: influxdbhttp
-    port: 80
-    targetPort: 8086
+  - port: 80
+    name: http
+  - port: 443
+    name: https
   selector:
     app: {{ template "fullname" . }}
     version: "{{ .Values.imageTag }}"

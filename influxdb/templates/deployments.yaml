@@ -42,7 +42,6 @@ spec:
                 value: {{.Values.imageTag}}
           initialDelaySeconds: 5
           timeoutSeconds: 1
-        imagePullPolicy: IfNotPresent
         resources:
           limits:
             cpu: "{{.Values.cpu}}"

@@ -47,14 +47,14 @@ spec:
           #  done ;
           #  sleep 45;
           - >
-            until $(http --check-status --ignore-stdin --timeout=1 http://{{ template "fullname" . }}:8086/ping &> /dev/null); do
+            until $(http --check-status --ignore-stdin --timeout=1 http://{{ template "fullname" . }}/ping &> /dev/null); do
               printf '.'; sleep 1;
             done ;
             echo "create admin user ";
-            http POST http://{{ template "fullname" . }}:8086/query \
+            http POST http://{{ template "fullname" . }}/query \
               q=="CREATE USER admin WITH PASSWORD '${ADMIN_PASSWORD}' WITH ALL PRIVILEGES";
             echo "create telegraf database and users";
-            http -a admin:${ADMIN_PASSWORD} POST http://{{ template "fullname" . }}:8086/query \
+            http -a admin:${ADMIN_PASSWORD} POST http://{{ template "fullname" . }}/query \
               q=="CREATE DATABASE {{ .Values.Database }};\
                   CREATE USER _write WITH PASSWORD '${WRITE_PASSWORD}';\
                   CREATE USER _read WITH PASSWORD '${READ_PASSWORD}';\
