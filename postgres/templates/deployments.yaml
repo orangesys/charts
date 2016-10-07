@@ -8,20 +8,6 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
     version: "{{ .Values.imageTag }}"
-  annotations:
-    pod.alpha.kubernetes.io/init-containers: '[
-          {
-              "name": "remove-lost-found",
-              "image": "busybox:1.25.0",
-              "command": ["rmdir", "/var/lib/postgresql/data/lost+found"],
-              "volumeMounts": [
-                  {
-                      "name": "postgres-data",
-                      "mountPath": "/var/lib/mysql"
-                  }
-              ]
-            }
-          ]'
 spec:
   replicas: {{default 1 .Values.replicaCount | quote}}
   template:
@@ -32,6 +18,21 @@ spec:
         release: "{{ .Release.Name }}"
         heritage: "{{ .Release.Service }}"
         version: "{{ .Values.imageTag }}"
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+        pod.alpha.kubernetes.io/init-containers: '[
+            {
+                "name": "remove-lost-found",
+                "image": "busybox:1.25.0",
+                "command": ["rmdir", "/var/lib/postgresql/data/lost+found"],
+                "volumeMounts": [
+                    {
+                        "name": "postgres-data",
+                        "mountPath": "/var/lib/postgresql/data"
+                    }
+                ]
+              }
+            ]'
     spec:
       terminationGracePeriodSeconds: 0
       restartPolicy: Always
