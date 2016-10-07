@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "asia.gcr.io/orange-sys/alpine-slack8s:{{.Values.imageTag}}"
+        imagePullPolicy: Always
+        env:
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: slack-token
+        - name: SLACK_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: slack-channel
+      - name: kube-proxy
+        image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
+        imagePullPolicy: Always
+        args: ["proxy", "-p", "8001"]

@@ -1,0 +1,11 @@
+# Default values for slack8s.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+imageTag: "0.1.3"
+
+## Specify slack
+##
+# SlackToken: abcd-1234123412-ABCD1abcd2ABCD3abcd4ABCD
+## exclude "#""
+# SlackChannel: A123BCDEF
