@@ -4,13 +4,14 @@ THank you for [ultimateboy/slack8s](https://github.com/ultimateboy/slack8s)
 Kubernetes Slack Integration - Infinite loop go program which queries the Kubernetes Event Stream API and
 posts messages to slack for important events.
 
-![Slack8s demo showing creation of pod and then failed backoff loop alerts via Slack.](https://github.com/ultimateboy/slack8s/blob/master/images/slack8s-demo.png)
+![Slack8s demo showing creation of pod and then failed backoff loop alerts via Slack.](images/slack8s-demo.png)
 
 ## Building
 
 Given this is an active work in progress, you'll probably want to modify
 and build the code yourself. If you just want to get started quickly,
 use the image in [docker hub](https://hub.docker.com/r/orangesys/alpine-slack8s/).
+builded in alpine.
 
 1. `docker build .`
 2. Tag and push to your favorite registry
