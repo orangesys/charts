@@ -27,11 +27,6 @@ spec:
       - name: {{ template "fullname" . }}
         image: "mongo:{{.Values.imageTag}}"
         imagePullPolicy: IfNotPresent
-        env:
-          - name: POSTGRES_USER
-            value: {{ default "kong" .Values.postgresUser | quote }}
-          - name: POSTGRES_DB
-            value: {{ default "kong" .Values.postgresDatabase | quote }}
         resources:
           limits:
             cpu: "{{.Values.cpu}}"
