@@ -18,6 +18,8 @@ spec:
         release: "{{ .Release.Name }}"
         heritage: "{{ .Release.Service }}"
         version: "{{ .Values.imageTag }}"
+      annotations:
+        "helm.sh/created": {{ .Release.Time.Seconds | quote }}
     spec:
       terminationGracePeriodSeconds: 0
       containers:
