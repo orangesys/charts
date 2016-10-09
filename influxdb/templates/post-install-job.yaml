@@ -39,6 +39,11 @@ spec:
             secretKeyRef:
               name: {{ template "fullname" . }}
               key: write-password
+        {{- if .Values.retentionPolicy }}
+        - name: RETETION_POLICY
+          value: {{ .Values.retentionPolicy }}
+        {{- end }}
+
         command: ["/bin/ash", "-c"]
         args:
           # FIXME use kubernetes probe instead of "until curl"
@@ -59,4 +64,7 @@ spec:
                   CREATE USER _write WITH PASSWORD '${WRITE_PASSWORD}';\
                   CREATE USER _read WITH PASSWORD '${READ_PASSWORD}';\
                   GRANT WRITE on telegraf TO _write;\
-                  GRANT READ on telegraf TO _read;"
+                  GRANT READ on telegraf TO _read;";
+            [ "A" != "A$RETETION_POLICY" ] && \
+              http -a admin:${ADMIN_PASSWORD} POST http://{{ template "fullname" . }}/query \
+                q=="ALTER RETENTION POLICY "autogen" ON "telegraf" DURATION ${RETETION_POLICY};" || :

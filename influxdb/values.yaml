@@ -34,6 +34,9 @@ Database: telegraf
 # Number of instances to run
 replicaCount: 1
 
+# retention Policy
+#retentionPolicy: 
+
 ## Persist data to a persitent volume
 persistence:
   enabled: true
