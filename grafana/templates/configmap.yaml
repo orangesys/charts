@@ -68,11 +68,15 @@ data:
     #################################### Database ####################################
     [database]
     # Either "mysql", "postgres" or "sqlite3", it's your choice
-    type = sqlite3
-    host = unrealized-liz-mariadb:3306
-    name = grafana
+    {{- if .Values.mariadb.enabled }}
+    type = mysql
+    host = {{ .Values.mariadb.host }}:3306
+    name = {{ .Release.Name }}
     user = root
     password =
+    {{- else }}
+    type = sqlite3
+    {{- end }}
 
     # For "postgres", use either "disable", "require" or "verify-full"
     # For "mysql", use either "true", "false", or "skip-verify".

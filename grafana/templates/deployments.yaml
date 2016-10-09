@@ -19,7 +19,16 @@ spec:
         heritage: "{{ .Release.Service }}"
         version: "{{ .Values.imageTag }}"
       annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
+        "helm.sh/created": {{ .Release.Time.Seconds | quote }}
+        {{- if .Values.mariadb.enabled }}
+        pod.alpha.kubernetes.io/init-containers: '[
+            {
+                "name": "create-database-{{ .Release.Name }}",
+                "image": "asia.gcr.io/orange-sys/alpine-job:0.1.2",
+                "command": ["mysql", "-h", "{{ .Values.mariadb.host }}", "-e", "create database {{ .Release.Name }}"]
+              }
+            ]'
+        {{- end }}
     spec:
       terminationGracePeriodSeconds: 0
       containers:

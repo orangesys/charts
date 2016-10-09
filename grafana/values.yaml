@@ -10,3 +10,8 @@ memory: 100Mi
 
 # Number of instances to run
 replicaCount: 1
+
+# Database
+mariadb:
+  enabled: true
+  host: grafana-mariadb.apigateway
