@@ -41,7 +41,7 @@ spec:
               key: write-password
         {{- if .Values.retentionPolicy }}
         - name: RETETION_POLICY
-          value: {{ .Values.retentionPolicy }}
+          value: {{ default "10d" .Values.retentionPolicy }}
         {{- end }}
 
         command: ["/bin/ash", "-c"]

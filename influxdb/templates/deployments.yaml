@@ -9,7 +9,7 @@ metadata:
     heritage: "{{ .Release.Service }}"
     version: "{{ .Values.imageTag }}"
 spec:
-  replicas: {{default 1 .Values.replicaCount | quote}}
+  replicas: {{default 1 .Values.replicaCount }}
   template:
     metadata:
       labels:
