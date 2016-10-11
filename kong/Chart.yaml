@@ -9,4 +9,4 @@ maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com
 engine: gotpl
-  - https://github.com/Masterminds/sprig
+#  - https://github.com/Masterminds/sprig
