@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/orange-sys/alpine-influxdb:{{.Values.imageTag}}"
+        image: "asia.gcr.io/orange-sys/alpine-orangesys-influxdb:{{.Values.imageTag}}"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
