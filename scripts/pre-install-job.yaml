@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{.Release.Service | quote }}
+    release: {{.Release.Name | quote }}
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+  annotations:
+    # This declares the resource to be a hook. By convention, we also name the
+    # file "pre-install-XXX.yaml", but Helm itself doesn't care about file names.
+    "helm.sh/hook": pre-install
+spec:
+  template:
+    metadata:
+      name: {{ template "fullname" . }}
+      labels:
+        heritage: {{.Release.Service | quote }}
+        release: {{.Release.Name | quote }}
+        chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: {{ template "fullname" . }}
+        image: asia.gcr.io/orange-sys/alpine-job:0.1.2
+        command:
+          - mysql
+          - "-h"
+          - {{ .Values.mariadb.host }}
+          - "-e"
+          - "create database {{ .Release.Name }}"
