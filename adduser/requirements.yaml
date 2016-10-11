@@ -1,5 +1,7 @@
 dependencies:
   - name: grafana
-    version: 0.1.0
+    version: 0.1.4
+    repository: https://storage.googleapis.com/orangesys-charts
   - name: influxdb
-    version: 0.1.0
+    version: 0.1.4
+    repository: https://storage.googleapis.com/orangesys-charts

@@ -1,9 +1,0 @@
-Getting Started:
-
-grafana can be accessed via port 3000 on the following DNS name from within your cluster:
-{{ template "fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
-
-To connect to your database:
-
-1. Port-Forward pod that you can access dashboard:
-    kubectl port-forward $(kubectl get pod -l app={{ template "fullname" . }} -o jsonpath='{.items..metadata.name}') 3000

@@ -27,6 +27,10 @@ spec:
               key: write-password
         command: ["/bin/sh", "-c"]
         args:
+          # import jwt,uuid
+          # key=str(uuid.uuid4()).replace('-', '')
+          # secret=str(uuid.uuid4()).replace('-', '')
+          # token=jwt.encode({'iss':key},secret,algorithm='HS256')
           # FIXME use kubernetes probe instead of "until curl"
           - >
             KEY=$(python -c "import uuid; print str(uuid.uuid4()).replace('-', '')");
