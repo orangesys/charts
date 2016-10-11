@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+      annotations:
+        "helm.sh/created": {{ .Release.Time.Seconds | quote }}
+    spec:
+      terminationGracePeriodSeconds: 0
+      restartPolicy: Always
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "graylog2/server:{{.Values.imageTag}}"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: GRAYLOG_PASSWORD_SECRET
+            value: somepasswordpepper
+          - name: GRAYLOG_ROOT_PASSWORD_SHA2
+            value: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+          - name: GRAYLOG_ENDPOINT_URI
+            value: http://127.0.0.1:9000/api
+          - name: mongo
+            value: gyybcb-mongodb
+          - name: elasticsearch
+            value: ofaulx-elasticsearch
+        ports:
+          - name: web
+            containerPort: 9000

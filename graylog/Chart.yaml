@@ -1,0 +1,11 @@
+description: A Helm chart for Kubernetes
+name: graylog
+version: 0.1.0
+description: Chart for graylog
+keywords:
+  - logging
+maintainers:
+  - name: gavin zhou
+    email: gavin.zhou@gmail.com
+engine: gotpl
+  - https://github.com/Masterminds/sprig
