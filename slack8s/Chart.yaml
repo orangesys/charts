@@ -1,6 +1,6 @@
 description: A Helm chart for Kubernetes
 name: slack8s
-version: 0.1.3
+version: 0.1.4
 description: Chart for slack8s
 keywords:
   - kubernetes
@@ -10,4 +10,4 @@ maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com
 engine: gotpl
-  - https://github.com/Masterminds/sprig
+#  - https://github.com/Masterminds/sprig
