@@ -1,6 +1,6 @@
 description: A Helm chart for Kubernetes
 name: postgres
-version: 0.1.0
+version: 0.1.4
 description: Chart for postgres
 keywords:
   - postgres
@@ -9,4 +9,4 @@ maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com
 engine: gotpl
-  - https://github.com/Masterminds/sprig
+#  - https://github.com/Masterminds/sprig
