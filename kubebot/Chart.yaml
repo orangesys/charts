@@ -1,0 +1,15 @@
+apiVersion: v1
+description: A Helm chart for Kubernetes
+name: kubebot
+version: 0.1.1
+description: Chart for kubebot
+keywords:
+  - kubernetes
+  - kubectl
+  - chatbot
+  - slack
+maintainers:
+  - name: gavin zhou
+    email: gavin.zhou@gmail.com
+engine: gotpl
+#  - https://github.com/Masterminds/sprig

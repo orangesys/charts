@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "asia.gcr.io/orange-sys/alpine-kubebot:{{.Values.imageTag}}"
+        imagePullPolicy: Always
+        env:
+        - name: KUBEBOT_SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: kubebot_slack_token
+        - name: KUBEBOT_SLACK_CHANNELS_IDS
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: kubebot_slack_channels_ids
+        - name: KUBEBOT_SLACK_ADMINS_NICKNAMES
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: kubebot_slack_admins_nicknames
+        - name: KUBEBOT_SLACK_VALID_COMMANDS
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: kubebot_slack_valid_commands
