@@ -1,6 +1,6 @@
 description: A Helm chart for Kubernetes
 name: adduser
-version: 0.1.4
+version: 0.1.8
 description: Chart for adduser in orangesys.io
 keywords:
   - api

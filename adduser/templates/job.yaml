@@ -14,44 +14,43 @@ spec:
         heritage: {{.Release.Service | quote }}
         release: {{.Release.Name | quote }}
         chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+      annotations:
+        pod.alpha.kubernetes.io/init-containers: '[
+              {
+                  "name": "batch-jobs-with-git",
+                  "image": "bravissimolabs/alpine-git",
+                  "command": ["git", "clone", "https://github.com/orangesys/batch-jobs.git", "/batch-jobs"],
+                  "volumeMounts": [
+                      {
+                          "name": "batch-jobs",
+                          "mountPath": "/batch-jobs"
+                      }
+                  ]
+              }
+          ]'
     spec:
       restartPolicy: Never
       containers:
       - name: {{ template "fullname" . }}
-        image: asia.gcr.io/orange-sys/alpine-job:0.1.0
+        image: asia.gcr.io/orange-sys/alpine-job:0.1.3
         env:
-        - name: WRITE_PASSWORD
+        - name: kongAdminAPI
+          value: {{ default "" .Values.kongAdminAPI }}
+        - name: kongKey
+          value: {{ default "" .Values.kongKey }}
+        - name: kongSecret
+          value: {{ default "" .Values.kongSecret }}
+        - name: UserName
+          value: {{ .Release.Name }}
+        - name: WritePassword
           valueFrom:
             secretKeyRef:
               name: {{ template "influxdb.fullname" . }}
               key: write-password
-        command: ["/bin/sh", "-c"]
-        args:
-          # import jwt,uuid
-          # key=str(uuid.uuid4()).replace('-', '')
-          # secret=str(uuid.uuid4()).replace('-', '')
-          # token=jwt.encode({'iss':key},secret,algorithm='HS256')
-          # FIXME use kubernetes probe instead of "until curl"
-          - >
-            KEY=$(python -c "import uuid; print str(uuid.uuid4()).replace('-', '')");
-            SECRET=$(python -c "import uuid; print str(uuid.uuid4()).replace('-', '')");
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis \
-              name={{ template "influxdb.fullname" . }} \
-              upstream_url=http://{{ template "influxdb.fullname" . }}.default/ \
-              request_host={{ .Release.Name }}.i.orangesys.io ;
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
-              name=jwt ;
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
-              name=correlation-id \
-              config.header_name=Orangesys-Request-ID \
-              config.generator="uuid#counter" \
-              config.echo_downstream=false;
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/apis/{{ template "influxdb.fullname" . }}/plugins \
-              name=request-transformer \
-              config.remove.querystring=jwt \
-              config.add.querystring="u:_write,p:${WRITE_PASSWORD}";
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers \
-              username={{ .Release.Name }};
-            http --ignore-stdin POST http://{{ .Values.kongAdminAPI }}/consumers/{{ .Release.Name }}/jwt \
-              key=${KEY} \
-              secret=${SECRET}
+        command: ["/usr/bin/python", "/batch-jobs/adduser.py"]
+        volumeMounts:
+          - name: batch-jobs
+            mountPath: /batch-jobs
+      volumes:
+        - name: batch-jobs
+          emptyDir: {}

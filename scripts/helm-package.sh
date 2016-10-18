@@ -2,7 +2,7 @@
 
 set -e
 
-_packagelist=(influxdb traefik grafana kong postgres slack8s)
+_packagelist=(adduser influxdb traefik grafana kong postgres slack8s)
 if [ $# -gt 0 ]; then
   _packagelist=("$@")
 fi
