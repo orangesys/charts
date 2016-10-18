@@ -39,10 +39,8 @@ spec:
             secretKeyRef:
               name: {{ template "fullname" . }}
               key: write-password
-        {{- if .Values.retentionPolicy }}
         - name: RETETION_POLICY
           value: {{ default "10d" .Values.retentionPolicy }}
-        {{- end }}
 
         command: ["/bin/ash", "-c"]
         args:
