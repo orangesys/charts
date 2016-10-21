@@ -18,7 +18,7 @@ spec:
         pod.alpha.kubernetes.io/init-containers: '[
               {
                   "name": "batch-jobs-with-git",
-                  "image": "bravissimolabs/alpine-git",
+                  "image": "asia.gcr.io/orange-sys/alpine-job:0.1.4",
                   "command": ["git", "clone", "https://github.com/orangesys/batch-jobs.git", "/batch-jobs"],
                   "volumeMounts": [
                       {
@@ -31,8 +31,8 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: {{ template "fullname" . }}
-        image: asia.gcr.io/orange-sys/alpine-job:0.1.3
+      - name: {{ template "fullname" . }}-kong
+        image: asia.gcr.io/orange-sys/alpine-job:0.1.4
         env:
         - name: kongAdminAPI
           value: {{ default "" .Values.kongAdminAPI }}
@@ -48,6 +48,25 @@ spec:
               name: {{ template "influxdb.fullname" . }}
               key: write-password
         command: ["/usr/bin/python", "/batch-jobs/adduser.py"]
+        volumeMounts:
+          - name: batch-jobs
+            mountPath: /batch-jobs
+            readOnly: true
+      - name: {{ template "fullname" . }}-ing
+        image: asia.gcr.io/orange-sys/alpine-job:0.1.4
+        env:
+        - name: UserName
+          value: {{ .Release.Name }}
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            sed -i "s/ID/$UserName/" /batch-jobs/consumerId.sed;
+            kubectl get ing i-orangesys-io-ingress --namespace apigateway \
+              -o yaml|sed '/rules/r /batch-jobs/consumerId.sed'| \
+              kubectl replace -f -;
+            kubectl get configmap orangesys-lb-traefik --namespace kube-system \
+              -o yaml|sed "s/sans = \[/&\"$UserName.i.orangesys.io\", /"| \
+              kubectl replace -f -;
         volumeMounts:
           - name: batch-jobs
             mountPath: /batch-jobs

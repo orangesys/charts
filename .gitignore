@@ -1,6 +1,5 @@
 *.tgz
 orangesys-charts
-ing.yaml
 allnamespace
 changegspermissions.sh
 requirements.lock

@@ -35,11 +35,10 @@ Database: telegraf
 replicaCount: 1
 
 # retention Policy
-#retentionPolicy: 
+#retentionPolicy:
 
 ## Persist data to a persitent volume
 persistence:
   enabled: true
   storageClass: generic
   accessMode: ReadWriteOnce
-  size: 10Gi
