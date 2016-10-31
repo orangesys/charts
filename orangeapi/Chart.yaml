@@ -1,0 +1,13 @@
+description: A orangeapi chart for Kubernetes
+name: orangeapi
+version: 0.1.4
+description: orangesys backend api for kubernetes
+keywords:
+  - kubernetes
+  - backendapi
+  - helm
+maintainers:
+  - name: gavin zhou
+    email: gavin.zhou@gmail.com
+engine: gotpl
+#  - https://github.com/Masterminds/sprig

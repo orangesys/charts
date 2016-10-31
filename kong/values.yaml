@@ -16,4 +16,4 @@ memory: 256Mi
 # kongPGHost:
 
 # Number of instances to run
-replicaCount: 1
+replicaCount: 2
