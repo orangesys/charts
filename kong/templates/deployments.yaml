@@ -21,6 +21,19 @@ spec:
       annotations:
         "helm.sh/created": {{ .Release.Time.Seconds | quote }}
         pod.alpha.kubernetes.io/initialized: "true"
+        pod.alpha.kubernetes.io/init-containers: '[
+              {
+                  "name": "batch-jobs-with-git",
+                  "image": "asia.gcr.io/orange-sys/alpine-job:0.1.5",
+                  "command": ["git", "clone", "https://github.com/orangesys/alpine-kong.git", "/kong"],
+                  "volumeMounts": [
+                      {
+                          "name": "kong",
+                          "mountPath": "/kong"
+                      }
+                  ]
+              }
+          ]'
     spec:
       terminationGracePeriodSeconds: 0
       containers:
@@ -37,6 +50,13 @@ spec:
           - --hostsfile=/etc/hosts
       - name: {{ template "fullname" . }}
         image: "asia.gcr.io/orange-sys/alpine-kong:{{.Values.imageTag}}"
+        args:
+          - kong
+          - start
+          - -c
+          - /kong/conf/kong.conf
+          - --nginx-conf
+          - /kong/conf/nginx.template
         imagePullPolicy: IfNotPresent
         resources:
           limits:
@@ -57,21 +77,17 @@ spec:
         - name: proxy
           containerPort: 8000
           protocol: TCP
-        - name: proxy-ssl
-          containerPort: 8443
-          protocol: TCP
         - name: serf
           containerPort: 7946
         livenessProbe:
           httpGet:
-            path: /status
+            path: /healthcheck
             port: 8001
           initialDelaySeconds: 30
           timeoutSeconds: 1
-#        volumeMounts:
-#        - name: kong-config
-#          mountPath: /etc/kong
-#      volumes:
-#        - name: kong-config
-#          configMap:
-#            name: kong-config
+        volumeMounts:
+        - name: kong
+          mountPath: /kong
+      volumes:
+        - name: kong
+          emptyDir: {}
