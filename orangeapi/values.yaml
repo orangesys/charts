@@ -2,10 +2,4 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "0.1.4"
-
-## Specify slack
-##
-# SlackToken: abcd-1234123412-ABCD1abcd2ABCD3abcd4ABCD
-## exclude "#""
-# SlackChannel: A123BCDEF
+imageTag: "0.1.5"

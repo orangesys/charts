@@ -2,7 +2,7 @@
 
 set -e
 
-_packagelist=(adduser influxdb traefik grafana kong postgres slack8s)
+_packagelist=(adduser influxdb traefik grafana kong postgres slack8s orangesys-srv orangeapi)
 if [ $# -gt 0 ]; then
   _packagelist=("$@")
 fi
