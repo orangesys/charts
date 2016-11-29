@@ -35,6 +35,6 @@ spec:
               name: {{ template "fullname" . }}
               key: slack-channel
       - name: kube-proxy
-        image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
+        image: gcr.io/google_containers/kubernetes-dashboard-amd64:v1.4.2
         imagePullPolicy: Always
         args: ["proxy", "-p", "8001"]
