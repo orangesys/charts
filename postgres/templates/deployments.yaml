@@ -39,7 +39,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/orange-sys/alpine-postgres:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/alpine-postgres:{{.Values.imageTag}}"
         imagePullPolicy: IfNotPresent
         env:
           - name: POSTGRES_USER

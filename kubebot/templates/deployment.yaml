@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/orange-sys/alpine-kubebot:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/alpine-kubebot:{{.Values.imageTag}}"
         imagePullPolicy: Always
         env:
         - name: KUBEBOT_SLACK_TOKEN

@@ -22,7 +22,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: {{ template "fullname" . }}
-        image: asia.gcr.io/orange-sys/alpine-job:0.1.4
+        image: asia.gcr.io/saas-orangesys-io/alpine-job:0.1.6
         env:
         - name: ADMIN_PASSWORD
           valueFrom:

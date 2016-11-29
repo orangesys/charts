@@ -24,7 +24,7 @@ spec:
         pod.alpha.kubernetes.io/init-containers: '[
               {
                   "name": "batch-jobs-with-git",
-                  "image": "asia.gcr.io/orange-sys/alpine-job:0.1.5",
+                  "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.6",
                   "command": ["git", "clone", "https://github.com/orangesys/alpine-kong.git", "/kong"],
                   "volumeMounts": [
                       {
@@ -49,7 +49,7 @@ spec:
           - --append-search-domains
           - --hostsfile=/etc/hosts
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/orange-sys/alpine-kong:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/alpine-kong:{{.Values.imageTag}}"
         args:
           - kong
           - start

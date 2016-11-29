@@ -1,12 +1,11 @@
+apiVersion: v1
 description: A Helm chart for Kubernetes
-name: adduser
-version: 0.1.12
-description: Chart for adduser in orangesys.io
+name: orangesys-srv
+version: 0.1.0
 keywords:
-  - api
-  - kong
-  - grafana
-  - influxdb
+  - orangesys
+  - stripe
+  - backendapi
 maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com

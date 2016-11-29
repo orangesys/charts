@@ -1,0 +1,8 @@
+# Default values for orangesys-srv.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+imageTag: "0.1.0"
+
+##
+#StripeSecretKey=xxxxxxxxxxx

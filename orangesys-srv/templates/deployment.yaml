@@ -21,20 +21,10 @@ spec:
     spec:
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/saas-orangesys-io/alpine-slack8s:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/orangesys-srv:{{.Values.imageTag}}"
         imagePullPolicy: Always
         env:
-        - name: SLACK_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "fullname" . }}
-              key: slack-token
-        - name: SLACK_CHANNEL
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "fullname" . }}
-              key: slack-channel
-      - name: kube-proxy
-        image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
-        imagePullPolicy: Always
-        args: ["proxy", "-p", "8001"]
+          - name: STRIPE_SECRET_KEY
+            value: {{ default "" .Values.StripeSecretKey }}
+        ports:
+        - containerPort: 5001

@@ -22,7 +22,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: {{ template "fullname" . }}
-        image: asia.gcr.io/orange-sys/alpine-job:0.1.4
+        image: asia.gcr.io/saas-orangesys-io/alpine-job:0.1.6
         env:
         - name: READ_PASSWORD
           valueFrom:
@@ -39,7 +39,7 @@ spec:
             http --ignore-stdin POST http://admin:admin@{{ template "fullname" . }}:3000/api/datasources \
               name=influxdb \
               type=influxdb \
-              url=http://{{ template "influxdb.fullname" . }}:8086 \
+              url=http://{{ template "influxdb.fullname" . }} \
               access=proxy \
               database=telegraf \
               user=_read \
