@@ -1,2 +1,2 @@
 #!/bin/bash
-helm repo index orangesys-charts --url https://storage.googleapis.com/orangesys-charts
+helm repo index orangesys-io-charts --url https://storage.googleapis.com/orangesys-io-charts

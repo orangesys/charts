@@ -10,5 +10,5 @@ fi
 for _d in "${_packagelist[@]}"
 do
  rm -rf  orangesys-charts/${_d}*.tgz
- helm package ${_d} && mv ${_d}*.tgz orangesys-charts/
+ helm package ${_d} && mv ${_d}*.tgz orangesys-io-charts/
 done
