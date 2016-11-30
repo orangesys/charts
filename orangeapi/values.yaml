@@ -2,4 +2,4 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "0.1.5"
+imageTag: "0.1.6"
