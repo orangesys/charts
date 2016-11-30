@@ -21,7 +21,7 @@ spec:
       annotations:
         pod.alpha.kubernetes.io/init-containers: '[
               {
-                  "name": "init-helm",
+                  "name": "get-app-source-{{ .Release.Name }}",
                   "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7",
                   "command": ["/bin/sh",
                               "-c",
