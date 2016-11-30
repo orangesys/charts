@@ -1,0 +1,60 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{ default 1 .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+      annotations:
+        "helm.sh/created": {{ .Release.Time.Seconds | quote }}
+    spec:
+      terminationGracePeriodSeconds: 0
+      restartPolicy: Always
+      containers:
+      - name: kube-cert-manager
+        image: "asia.gcr.io/saas-orangesys-io/kube-cert-manager:0.3.1"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: GCE_PROJECT
+            value: "saas-orangesys-io"
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: "/gac/orangesys-5f254b751dae.json"
+        args:
+          - "-data-dir=/var/lib/cert-manager"
+          - "-acme-url=https://acme-staging.api.letsencrypt.org/directory"
+          # NOTE: the URL above points to the staging server, where you won't get real certs.
+          # Uncomment the line below to use the production LetsEncrypt server:
+          #- "-acme-url=https://acme.api.letsencrypt.org/directory"
+        volumeMounts:
+          - name: data
+            mountPath: /var/lib/cert-manager
+          - name: gac
+            readOnly: true
+            mountPath: /gac
+      - name: kubectl-proxy
+        image: "asia.gcr.io/saas-orangesys-io/kubectl-proxy:1.4.0"
+        imagePullPolicy: IfNotPresent
+      volumes:
+        - name: gac
+          secret:
+            secretName: saas-orangesys-io
+        - name: data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ template "fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}

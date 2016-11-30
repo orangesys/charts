@@ -1,0 +1,14 @@
+# Default values for kube-cert-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+imageTag: "0.3.1"
+
+# Number of postgrest instances to run
+replicaCount: 1
+
+## Persist data to a persitent volume
+persistence:
+  enabled: true
+  storageClass: generic
+  accessMode: ReadWriteOnce
+  size: 5Gi
