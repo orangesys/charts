@@ -1,0 +1,13 @@
+apiVersion: v1
+description: A Helm chart for Kubernetes
+name: app.orangesys.io
+version: 0.1.0
+description: orangesys frontweb for kubernetes
+keywords:
+  - kubernetes
+  - helm
+maintainers:
+  - name: gavin zhou
+    email: gavin.zhou@gmail.com
+engine: gotpl
+#  - https://github.com/Masterminds/sprig

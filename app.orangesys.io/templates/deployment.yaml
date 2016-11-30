@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    version: "{{ .Values.imageTag }}"
+spec:
+  replicas: {{default 1 .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        version: "{{ .Values.imageTag }}"
+      annotations:
+        pod.alpha.kubernetes.io/init-containers: '[
+              {
+                  "name": "init-helm",
+                  "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7",
+                  "command": ["/bin/sh",
+                              "-c",
+                              "curl -sSL http://storage.googleapis.com/kubernetes-helm/helm-v2.0.0-linux-amd64.tar.gz|tar -xz && mv target/* /target && curl -sSLo /target/nginx.conf https://raw.githubusercontent.com/orangesys/app.orangesys.io/master/spa-nginx.conf"
+                  ],
+                  "volumeMounts": [
+                      {
+                          "name": "target",
+                          "mountPath": "/target"
+                      }
+                  ]
+              }
+          ]'
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "asia.gcr.io/saas-orangesys-io/openresty:alpine"
+        imagePullPolicy: IfNotPresent
+        args:
+        - -c
+        - /target/nginx.conf
+        ports:
+        - name: app-orangesys
+          containerPort: 80
+        volumeMounts:
+        - name: target
+          mountPath: /target
+          readOnly: true
+      volumes:
+        - name: target
+          emptyDir: {}
