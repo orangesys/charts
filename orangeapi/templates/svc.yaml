@@ -8,10 +8,10 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  type: LoadBalancer
   ports:
     - name: orangeapi
-      port: 1323
+      port: 80
+      targetPort: 1323
   selector:
     app: {{ template "fullname" . }}
     version: "{{ .Values.imageTag }}"
