@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "1.0.1"
+imageTag: "1.1.0"
 
 # resources limits
 cpu: 100m
