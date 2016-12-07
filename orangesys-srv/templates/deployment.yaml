@@ -24,7 +24,10 @@ spec:
         image: "asia.gcr.io/saas-orangesys-io/orangesys-srv:{{.Values.imageTag}}"
         imagePullPolicy: Always
         env:
-          - name: STRIPE_SECRET_KEY
-            value: {{ default "" .Values.StripeSecretKey }}
+        - name: STRIPE_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: stripe-live-key
         ports:
         - containerPort: 5001

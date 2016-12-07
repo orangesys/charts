@@ -5,3 +5,5 @@ allnamespace
 changegspermissions.sh
 requirements.lock
 env
+core-grafana
+kubernetes-prometheus

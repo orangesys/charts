@@ -36,9 +36,6 @@ spec:
         image: "asia.gcr.io/saas-orangesys-io/alpine-grafana:{{.Values.imageTag}}"
         imagePullPolicy: IfNotPresent
         resources:
-          limits:
-            cpu: "{{.Values.cpu}}"
-            memory: "{{.Values.memory}}"
           requests:
             cpu: "{{.Values.cpu}}"
             memory: "{{.Values.memory}}"
