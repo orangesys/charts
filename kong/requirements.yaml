@@ -1,4 +1,4 @@
 dependencies:
   - name: postgres
     version: 0.1.4
-    repository: https://orangesys-io-charts.storage.googleapis.com/
+    repository: https://storage.googleapis.com/orangesys-io-charts
