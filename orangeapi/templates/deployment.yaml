@@ -40,6 +40,17 @@ spec:
       - name: {{ template "fullname" . }}
         image: "asia.gcr.io/saas-orangesys-io/alpine-orangeapi:{{.Values.imageTag}}"
         imagePullPolicy: Always
+        env:
+        - name: FIREBASE_SECRETS
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: firebase-secrets
+        - name: FIREBASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: firebase-url
         ports:
         - name: orangeapi
           containerPort: 1323
