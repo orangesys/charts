@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sysapi-orangesys-io
+  namespace: apigateway
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "sysapi-orangesys-io-ingress"
+    kubernetes.io/ingress.allow-http: "false"
+    stable.k8s.psg.io/kcm.enabled: "true"
+    stable.k8s.psg.io/kcm.provider: "googlecloud"
+    stable.k8s.psg.io/kcm.email: "hello@orangesys.io"
+spec:
+  tls:
+  - hosts:
+    - sysapi.orangesys.io
+    secretName: ssl-sysapi-orangesys-io
+  rules:
+  - host: "sysapi.orangesys.io"
+    http:
+      paths:
+      - path: /stripe/customers
+        backend:
+          serviceName: stripe-orangesys-srv
+          servicePort: 80
+      - path: /stripe/webhooks
+        backend:
+          serviceName: stripe-orangesys-srv
+          servicePort: 80
+      - path: /create
+        backend:
+          serviceName: sys-orangeapi
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: sys-orangeapi
+          servicePort: 80

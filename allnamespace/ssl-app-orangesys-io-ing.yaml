@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ssl-app-orangesys-io
+  namespace: apigateway
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "app-orangesys-io-ingress"
+    kubernetes.io/ingress.allow-http: "false"
+    stable.k8s.psg.io/kcm.enabled: "true"
+    stable.k8s.psg.io/kcm.provider: "googlecloud"
+    stable.k8s.psg.io/kcm.email: "hello@orangesys.io"
+spec:
+  tls:
+  - hosts:
+    - app.orangesys.io
+    secretName: ssl-app.orangesys.io
+  rules:
+  - host: "app.orangesys.io"
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: app-orangesys
+          servicePort: 80

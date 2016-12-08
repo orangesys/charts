@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apigateway
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: opsbot
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-lego
