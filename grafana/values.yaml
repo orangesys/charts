@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "4.0.1"
+imageTag: "4.0.2"
 
 # resources limits
 cpu: 100m
@@ -15,3 +15,6 @@ replicaCount: 1
 mariadb:
   enabled: true
   host: grafana-mariadb.apigateway
+
+admin:
+  set: true
