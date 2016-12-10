@@ -36,7 +36,7 @@ spec:
             until $(http -a admin:admin --check-status --ignore-stdin http://{{ template "fullname" . }}:3000/api/datasources &> /dev/null); do
               printf '.'; sleep 1;
             done ;
-            http --ignore-stdin POST http://admin:admin@{{ template "fullname" . }}:3000/api/datasources \
+            http --ignore-stdin POST http://admin:{{- if .Values.admin.set }}{{ .Release.Name | b64enc }} {{- else }}admin{{- end }}@{{ template "fullname" . }}:3000/api/datasources \
               name=influxdb \
               type=influxdb \
               url=http://{{ template "influxdb.fullname" . }} \

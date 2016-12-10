@@ -10,7 +10,8 @@ metadata:
 spec:
   ports:
     - name: grafanaweb
-      port: 3000
+      port: 80
+      targetPort:3000
   selector:
     app: {{ template "fullname" . }}
     version: "{{ .Values.imageTag }}"
