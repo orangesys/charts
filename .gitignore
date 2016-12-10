@@ -6,3 +6,4 @@ requirements.lock
 env
 core-grafana
 kubernetes-prometheus
+traefik
