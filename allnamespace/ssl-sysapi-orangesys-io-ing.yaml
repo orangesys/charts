@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: sysapi-orangesys-io
+  name: ssl-sysapi-orangesys-io
   namespace: apigateway
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "sysapi-orangesys-io-ingress"
