@@ -1,15 +1,15 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ssl-i-orangesys-io
+  name: ssl-g-orangesys-io
   namespace: apigateway
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "i-orangesys-io-ingress"
+    kubernetes.io/ingress.global-static-ip-name: "g-orangesys-io-ingress"
 spec:
   tls:
   - hosts:
-    - i.orangesys.io
-    secretName: i-orangesys-io
+    - g.orangesys.io
+    secretName: g-orangesys-io
   rules:
   - host:
     http:
