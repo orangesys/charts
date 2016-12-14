@@ -4,6 +4,7 @@ orangesys-io-charts
 changegspermissions.sh
 requirements.lock
 env
-core-grafana
+core-*
 kubernetes-prometheus
 traefik
+cert
