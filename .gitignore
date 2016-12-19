@@ -6,5 +6,4 @@ requirements.lock
 env
 core-*
 kubernetes-prometheus
-traefik
 cert
