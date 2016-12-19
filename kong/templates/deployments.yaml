@@ -37,6 +37,27 @@ spec:
     spec:
       terminationGracePeriodSeconds: 0
       containers:
+      - image: asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7
+        name: {{ template "fullname" . }}-sysctl-buddy
+        # using kubectl exec you can check which other parameters is possible to change
+        # IPC Namespace:     kernel.msgmax, kernel.msgmnb, kernel.msgmni, kernel.sem, kernel.shmall,
+        #                    kernel.shmmax, kernel.shmmni, kernel.shm_rmid_forced and Sysctls
+        #                    beginning with fs.mqueue.*
+        # Network Namespace: Sysctls beginning with net.*
+        #
+        # kubectl <podname> -c sysctl-buddy -- sysctl -A | grep net
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do
+            sysctl -w net.core.somaxconn=32768
+            sysctl -w net.ipv4.ip_local_port_range='1024 65535'
+            sleep 10
+          done
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
       ### https://github.com/kubernetes/kubernetes/issues/26309
       ### fix bug in kong 0.10 maybe
       ### use go-dnsmasq in pod
@@ -67,7 +88,7 @@ spec:
             memory: "{{.Values.memory}}"
         env:
           - name: KONG_DATABASE
-            value: {{ default "postgres" .Values.kongDatabase | quote }}
+            value: {{ default "postgres" .Values.kongDatabase }}
           - name: KONG_PG_HOST
             value: {{ template "postgres.fullname" . }}
         ports :
