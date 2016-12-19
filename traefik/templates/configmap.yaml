@@ -4,12 +4,7 @@ metadata:
   name: {{ template "fullname" . }}
 data:
   traefik.toml: |
-    logLevel = "DEBUG"
     defaultEntryPoints = ["http","https"]
-
-    [web]
-    address = ":8080"
-
     [entryPoints]
       [entryPoints.http]
       address = ":80"
@@ -18,17 +13,9 @@ data:
       [entryPoints.https]
       address = ":443"
         [entryPoints.https.tls]
-
-    [acme]
-
-    email = "gavin.zhou@gmail.com"
-    storageFile = "acme.json"
-    onDemand = true
-    OnHostRule = true
-    caServer = "https://acme-staging.api.letsencrypt.org/directory"
-    ### stag
-    entryPoint = "https"
-
-    [[acme.domains]]
-       main = "i.orangesys.io"
-       sans = ["test1.i.orangesys.io", "test2.i.orangesys.io"]
+          [[entryPoints.https.tls.certificates]]
+          CertFile = "/ssl/tls.crt"
+          KeyFile = "/ssl/tls.key"
+    [kubernetes]
+    [web]
+    address = ":8080"

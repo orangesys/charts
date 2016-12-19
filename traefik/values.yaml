@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "v1.1.0-rc1"
+imageTag: "v1.1.2-alpine"
 
 # resources limits
 cpu: 200m
@@ -18,9 +18,5 @@ memory: 30Mi
 # Number of postgrest instances to run
 replicaCount: 1
 
-## Persist data to a persitent volume
 persistence:
-  enabled: true
-  storageClass: generic
-  accessMode: ReadWriteOnce
-  size: 5Gi
+  enabled: false

@@ -9,6 +9,7 @@ metadata:
     heritage: "{{ .Release.Service }}"
 spec:
   type: LoadBalancer
+  loadBalancerIP: 104.198.93.92
   ports:
   - port: 80
     name: http

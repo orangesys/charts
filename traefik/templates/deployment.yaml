@@ -43,18 +43,21 @@ spec:
           containerPort: 8080
         args:
         - --configfile=/config/traefik.toml
-        - --web
-        - --kubernetes
         - --logLevel=ERROR
         volumeMounts:
           - mountPath: "/etc/traefik/acme"
             name: traefik-acme
           - mountPath: "/config"
             name: config-volume
+          - mountPath: "/ssl"
+            name: "ssl"
       volumes:
         - name: config-volume
           configMap:
             name: {{ template "fullname" . }}
+        - name: ssl
+          secret:
+            secretName: g-orangesys-io
         - name: traefik-acme
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
