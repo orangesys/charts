@@ -1,3 +1,4 @@
+{{- if .Values.production.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -33,10 +34,10 @@ spec:
         args:
           # FIXME use kubernetes probe instead of "until curl"
           - >
-            until $(http -a admin:{{- if .Values.admin.set }}{{ .Release.Name | b64enc }}{{- else }}admin{{- end }} --check-status --ignore-stdin http://{{ template "fullname" . }}/api/datasources &> /dev/null); do
+            until $(http -a admin:{{- if .Values.admin.set }}{{ template "grafana.init.password" . }}{{- else }}admin{{- end }} --check-status --ignore-stdin http://{{ template "fullname" . }}/api/datasources &> /dev/null); do
               printf '.'; sleep 1;
             done ;
-            http --ignore-stdin POST http://admin:{{- if .Values.admin.set }}{{ .Release.Name | b64enc }}{{- else }}admin{{- end }}@{{ template "fullname" . }}/api/datasources \
+            http --ignore-stdin POST http://admin:{{- if .Values.admin.set }}{{ template "grafana.init.password" . }}{{- else }}admin{{- end }}@{{ template "fullname" . }}/api/datasources \
               name=influxdb \
               type=influxdb \
               url=http://{{ template "influxdb.fullname" . }} \
@@ -44,3 +45,5 @@ spec:
               database=telegraf \
               user=_read \
               password=${READ_PASSWORD}
+
+{{- end }}

@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "4.0.2"
+imageTag: "4.1.0-beta1"
 
 # resources limits
 cpu: 100m
@@ -18,3 +18,6 @@ mariadb:
 
 admin:
   set: true
+
+production:
+  enabled: true

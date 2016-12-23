@@ -1,3 +1,4 @@
+{{- if .Values.production.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -58,7 +59,7 @@ spec:
               q=="CREATE USER admin WITH PASSWORD '${ADMIN_PASSWORD}' WITH ALL PRIVILEGES";
             echo "create telegraf database and users";
             http -a admin:${ADMIN_PASSWORD} POST http://{{ template "fullname" . }}/query \
-              q=="CREATE DATABASE {{ .Values.Database }};\
+              q=="CREATE DATABASE telegraf;\
                   CREATE USER _write WITH PASSWORD '${WRITE_PASSWORD}';\
                   CREATE USER _read WITH PASSWORD '${READ_PASSWORD}';\
                   GRANT WRITE on telegraf TO _write;\
@@ -66,3 +67,5 @@ spec:
             [ "A" != "A$RETETION_POLICY" ] && \
               http -a admin:${ADMIN_PASSWORD} POST http://{{ template "fullname" . }}/query \
                 q=="ALTER RETENTION POLICY "autogen" ON "telegraf" DURATION ${RETETION_POLICY};" || :
+
+{{- end }}

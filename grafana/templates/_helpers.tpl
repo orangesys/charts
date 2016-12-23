@@ -21,5 +21,13 @@ Create a default fully qualified app name.
 We truncate at 24 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "influxdb.fullname" -}}
-{{- printf "%s-%s" .Release.Name "influxdb" | trunc 24 -}}
+{{- printf "%s-%s" .Release.Name "influxdb" |replace "-g" "-i" | trunc 24 -}}
+{{- end -}}
+
+{{- define "mariadb.name" -}}
+{{- printf "%s" .Release.Name |replace "-g" "" | trunc 24 -}}
+{{- end -}}
+
+{{- define "grafana.init.password" -}}
+{{- printf "%s" .Release.Name |replace "-g" "" | b64enc -}}
 {{- end -}}

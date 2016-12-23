@@ -5,6 +5,7 @@ metadata:
   namespace: apigateway
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "i-orangesys-io-ingress"
+    kubernetes.io/ingress.allow-http: "false"
 spec:
   tls:
   - hosts:

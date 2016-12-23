@@ -25,7 +25,7 @@ spec:
             {
                 "name": "create-database-{{ .Release.Name }}",
                 "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7",
-                "command": ["mysql", "-h", "{{ .Values.mariadb.host }}", "-e", "CREATE DATABASE IF NOT EXISTS {{ .Release.Name }}"]
+                "command": ["mysql", "-h", "{{ .Values.mariadb.host }}", "-e", "CREATE DATABASE IF NOT EXISTS {{ template "mariadb.name" . }}"]
               }
             ]'
         {{- end }}

@@ -24,43 +24,37 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/saas-orangesys-io/alpine-orangesys-influxdb:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/alpine-orangesys-influxdb:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        ports:
         livenessProbe:
           httpGet:
             path: /ping
-            port: 8086
+            port: api
             httpHeaders:
               - name: X-Influxdb-Version
                 value: {{.Values.imageTag}}
-          initialDelaySeconds: 45
-          timeoutSeconds: 3
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
         livenessProbe:
           httpGet:
             path: /ping
-            port: 8086
+            port: api
             httpHeaders:
               - name: X-Influxdb-Version
                 value: {{.Values.imageTag}}
           initialDelaySeconds: 5
           timeoutSeconds: 1
-        resources:
-          limits:
-            cpu: "{{.Values.cpu}}"
-            memory: "{{.Values.memory}}"
-          requests:
-            cpu: "{{.Values.cpu}}"
-            memory: "{{.Values.memory}}"
         ports:
-        - containerPort: 8083
-          name: admin
-        - containerPort: 8086
-          name: http
+        - containerPort: {{ .Values.config.http.bind_address }}
+          name: api
         volumeMounts:
         - name: config-volume
           mountPath: /etc/influxdb
         - name: influxdb-volume
-          mountPath: /var/lib/influxdb
+          mountPath: {{ .Values.config.storage_directory }}
       volumes:
       - name: config-volume
         configMap:
