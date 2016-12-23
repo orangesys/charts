@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "0.9.5"
+imageTag: "0.9.6"
 
 # resources limits
 cpu: 100m
@@ -16,4 +16,4 @@ memory: 256Mi
 kongPGHost: orangesys-postgres
 
 # Number of instances to run
-replicaCount: 1
+replicaCount: 2
