@@ -78,7 +78,7 @@ spec:
           - /kong/conf/kong.conf
           - --nginx-conf
           - /kong/conf/nginx.template
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: "{{.Values.cpu}}"
