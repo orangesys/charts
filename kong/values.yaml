@@ -16,4 +16,4 @@ memory: 256Mi
 kongPGHost: orangesys-postgres
 
 # Number of instances to run
-replicaCount: 2
+replicaCount: 1
