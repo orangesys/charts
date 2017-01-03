@@ -41,16 +41,19 @@ spec:
         image: "asia.gcr.io/saas-orangesys-io/alpine-orangeapi:{{.Values.imageTag}}"
         imagePullPolicy: Always
         env:
-        - name: FIREBASE_SECRETS
+        - name: ORANGEAPI_KONG_HOST
+          value: {{ default "" .Values.ORANGEAPI_KONG_HOST | quote }}
+        - name: ORANGEAPI_KONG_PORT
+          value: {{ default "" .Values.ORANGEAPI_KONG_PORT | quote }}
+        - name: ORANGEAPI_KONG_URL
+          value: {{ default "" .Values.ORANGEAPI_KONG_URL | quote }}
+        - name: ORANGEAPI_FIREBASE_URL
+          value: {{ default "" .Values.ORANGEAPI_FIREBASE_URL | quote }}
+        - name: ORANGEAPI_FIREBASE_AUTH
           valueFrom:
             secretKeyRef:
               name: {{ template "fullname" . }}
-              key: firebase-secrets
-        - name: FIREBASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "fullname" . }}
-              key: firebase-url
+              key: firebase-auth
         ports:
         - name: orangeapi
           containerPort: 1323
@@ -58,6 +61,9 @@ spec:
         - name: usr-local-sbin
           mountPath: /usr/local/sbin
           readOnly: true
+      - name: kubectl-proxy
+        image: "asia.gcr.io/saas-orangesys-io/kubectl-proxy:1.4.0"
+        imagePullPolicy: IfNotPresent
       volumes:
         - name: usr-local-sbin
           emptyDir: {}

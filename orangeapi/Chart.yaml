@@ -1,11 +1,12 @@
 description: A orangeapi chart for Kubernetes
 name: orangeapi
-version: 0.1.7
+version: 0.2.0
 description: orangesys backend api for kubernetes
 keywords:
   - kubernetes
   - backendapi
   - helm
+  - kong
 maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com

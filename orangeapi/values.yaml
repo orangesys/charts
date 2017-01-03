@@ -2,8 +2,11 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "0.1.7"
+imageTag: "0.2.0"
 
 ##
-#FIREBASE_SECRETS="xxxxxxxxxxxxxxxxxxxxxx"
-#FIREBASE_URL="https://xxxxxxxxxxx.firebaseio.com"
+#ORANGEAPI_FIREBASE_AUTH: "xxxxxxxxxxxxxxxxxxxxxx"
+ORANGEAPI_FIREBASE_URL: "https://saas-orangesys-io.firebaseio.com/"
+ORANGEAPI_KONG_HOST: "orangesys-kong-admin"
+ORANGEAPI_KONG_PORT: "8001"
+ORANGEAPI_KONG_URL: "http://orangesys-kong-admin:8001/"
