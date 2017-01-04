@@ -31,3 +31,7 @@ We truncate at 24 chars because some Kubernetes name fields are limited to this 
 {{- define "grafana.init.password" -}}
 {{- printf "%s" .Release.Name |replace "-g" "" | b64enc -}}
 {{- end -}}
+
+{{- define "grafana.url" -}}
+{{- printf "https://%s.g.orangesys.io" .Release.Name |replace "-g" "" -}}
+{{- end -}}
