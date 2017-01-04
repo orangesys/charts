@@ -14,12 +14,8 @@ data:
     plugins = /grafana/plugins
 
     [server]
-    protocol = http
-    http_addr =
-    http_port = 3000
-    domain = localhost
     enforce_domain = false
-    root_url = %(protocol)s://%(domain)s:%(http_port)s/
+    root_url = {{ template "grafana.url" . }}
 
     # Log web requests
     router_logging = false

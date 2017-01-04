@@ -1,6 +1,6 @@
 name: influxdb
 description: A Helm chart for Kubernetes
-version: 0.1.6
+version: 0.1.7
 description: Chart for influxdb
 keywords:
   - influxdb
