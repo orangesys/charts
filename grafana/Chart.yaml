@@ -1,6 +1,6 @@
 description: A Helm chart for Kubernetes
 name: grafana
-version: 0.1.12
+version: 0.1.13
 description: Chart for grafana
 keywords:
   - grafana
