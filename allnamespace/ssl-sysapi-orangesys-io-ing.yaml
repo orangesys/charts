@@ -29,6 +29,10 @@ spec:
         backend:
           serviceName: sys-orangeapi
           servicePort: 80
+      - path: /dbused
+        backend:
+          serviceName: sys-orangeapi
+          servicePort: 80
       - path: /
         backend:
           serviceName: sys-orangeapi
