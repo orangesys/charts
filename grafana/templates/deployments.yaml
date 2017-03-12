@@ -21,7 +21,7 @@ spec:
       annotations:
         "helm.sh/created": {{ .Release.Time.Seconds | quote }}
         {{- if .Values.mariadb.enabled }}
-        pod.alpha.kubernetes.io/init-containers: '[
+        pod.beta.kubernetes.io/init-containers: '[
             {
                 "name": "create-database-{{ .Release.Name }}",
                 "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7",
