@@ -5,14 +5,11 @@ metadata:
   namespace: apigateway
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    stable.k8s.psg.io/kcm.enabled: "true"
-    stable.k8s.psg.io/kcm.provider: "googlecloud"
-    stable.k8s.psg.io/kcm.email: "hello@orangesys.io"
 spec:
   tls:
   - hosts:
     - sysapi.orangesys.io
-    secretName: tls-sysapi-orangesys-io
+    secretName: sysapi.orangesys.io
   rules:
   - host: "sysapi.orangesys.io"
     http:

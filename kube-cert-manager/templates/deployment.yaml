@@ -25,7 +25,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: kube-cert-manager
-        image: "asia.gcr.io/saas-orangesys-io/kube-cert-manager:0.3.1"
+        image: "whereisaaron/kube-cert-manager:0.4.0"
         imagePullPolicy: IfNotPresent
         env:
           - name: GCE_PROJECT
@@ -45,8 +45,13 @@ spec:
             readOnly: true
             mountPath: /gac
       - name: kubectl-proxy
-        image: "asia.gcr.io/saas-orangesys-io/kubectl-proxy:1.4.0"
+        image: {{ .Values.proxy.image.repository }}:{{ .Values.proxy.image.tag }}
         imagePullPolicy: IfNotPresent
+        command:
+          - "/hyperkube"
+        args:
+          - "kubectl"
+          - "proxy"
       volumes:
         - name: gac
           secret:

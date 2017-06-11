@@ -1,0 +1,8 @@
+apiVersion: "stable.k8s.psg.io/v1"
+kind: "Certificate"
+metadata:
+  name: "sysapi-orangesys-io"
+spec:
+  domain: "sysapi.orangesys.io"
+  email: "hello@orangesys.io"
+  provider: "googlecloud"
