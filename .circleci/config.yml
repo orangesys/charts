@@ -1,0 +1,22 @@
+version: 2
+
+jobs:
+  deploy:
+    docker:
+      - image: golang:1.8.3
+    working_directory: ~/charts
+    steps:
+      - checkout
+      - run:
+          name: create package and index
+          command: |
+            set +o pipefail
+            ./scripts/helm-package.sh
+            ./scripts/create-index.sh
+      - run:
+          name: sync to github
+          command: |
+            set +o pipefial
+            git add docs
+            git commit -m "change helm pakacke with circlci"
+            git push
