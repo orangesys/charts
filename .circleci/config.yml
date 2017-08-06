@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golang:1.8.3
+      - image: orangesys/alpine-orangeapi:0.2.6
     working_directory: ~/charts
     steps:
       - checkout
