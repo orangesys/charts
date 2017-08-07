@@ -1,2 +1,0 @@
-Show JWT Token on pod log
-kubectl logs {{ template "fullname" . }} --namespace {{ .Release.Namespace }}

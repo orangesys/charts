@@ -2,7 +2,7 @@
 
 set -ex
 
-_packagelist=(adduser influxdb traefik grafana kong postgres slack8s orangesys-srv orangeapi)
+_packagelist=(influxdb traefik grafana kong postgres slack8s orangeapi kube-cert-manager kubebot)
 if [ $# -gt 0 ]; then
   _packagelist=("$@")
 fi
