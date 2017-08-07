@@ -24,7 +24,7 @@ jobs:
       - run:
           name: sync to github
           command: |
-            set +o pipefial
+            set +o pipefail
             git add docs
             git commit -m "change helm pakacke with circlci"
             git push
