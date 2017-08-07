@@ -28,5 +28,6 @@ jobs:
             git add docs
             git config --global user.email "gavin.zhou@gmail.com"
             git config --global user.name "gavinzhou"
+            git config --global push.default simple
             git commit -m "change helm pakacke with circlci"
             git push
