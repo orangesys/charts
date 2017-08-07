@@ -15,4 +15,3 @@ spec:
       targetPort: 1323
   selector:
     app: {{ template "fullname" . }}
-    version: "{{ .Values.imageTag }}"

@@ -4,14 +4,12 @@ metadata:
   name: {{ template "fullname" . }}
   labels:
     app: {{ template "fullname" . }}
-    version: "{{ .Values.imageTag }}"
 spec:
   replicas: {{default 1 .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: {{ template "fullname" . }}
-        version: "{{ .Values.imageTag }}"
       annotations:
         pod.alpha.kubernetes.io/init-containers: '[
               {
