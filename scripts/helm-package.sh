@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 _packagelist=(influxdb traefik grafana kong postgres slack8s orangeapi kube-cert-manager kubebot)
 if [ $# -gt 0 ]; then
