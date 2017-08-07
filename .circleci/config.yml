@@ -26,5 +26,7 @@ jobs:
           command: |
             set +o pipefail
             git add docs
+            git config --global user.email "gavin.zhou@gmail.com"
+            git config --global user.name "gavinzhou"
             git commit -m "change helm pakacke with circlci"
             git push
