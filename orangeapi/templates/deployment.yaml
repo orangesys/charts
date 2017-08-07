@@ -11,22 +11,7 @@ spec:
       labels:
         app: {{ template "fullname" . }}
       annotations:
-        pod.alpha.kubernetes.io/init-containers: '[
-              {
-                  "name": "init-helm",
-                  "image": "asia.gcr.io/saas-orangesys-io/alpine-job:0.1.7",
-                  "command": ["/bin/sh",
-                              "-c",
-                              "curl -sSL https://storage.googleapis.com/kubernetes-helm/helm-v{{.Values.helmVersion}}-linux-amd64.tar.gz|tar -xz && mv linux-amd64/helm /usr/local/sbin"
-                  ],
-                  "volumeMounts": [
-                      {
-                          "name": "usr-local-sbin",
-                          "mountPath": "/usr/local/sbin"
-                      }
-                  ]
-              }
-          ]'
+        "helm.sh/created": {{ .Release.Time.Seconds | quote }}
     spec:
       containers:
       - name: {{ template "fullname" . }}
@@ -49,13 +34,11 @@ spec:
         ports:
         - name: orangeapi
           containerPort: 1323
-        volumeMounts:
-        - name: usr-local-sbin
-          mountPath: /usr/local/sbin
-          readOnly: true
       - name: kubectl-proxy
-        image: "asia.gcr.io/saas-orangesys-io/kubectl-proxy:1.4.0"
+        image: "gcr.io/google_containers/hyperkube:v1.7.2"
         imagePullPolicy: IfNotPresent
-      volumes:
-        - name: usr-local-sbin
-          emptyDir: {}
+        command:
+          - "/hyperkube"
+        args:
+          - "kubectl"
+          - "proxy"

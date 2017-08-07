@@ -2,8 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-imageTag: "0.2.6"
-helmVersion: "2.5.1"
+imageTag: "0.2.8"
 
 ##
 #ORANGEAPI_FIREBASE_AUTH: "xxxxxxxxxxxxxxxxxxxxxx"
