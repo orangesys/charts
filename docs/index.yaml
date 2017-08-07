@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   adduser:
-  - created: 2017-08-07T17:23:55.167655723+09:00
+  - created: 2017-08-07T17:26:18.608106821+09:00
     description: Chart for adduser in orangesys.io
     digest: 2d99d1d908e4535011b5da4618d4275bb9310ac66605bdc9c6d5c2ef910a5b43
     engine: gotpl
@@ -18,7 +18,7 @@ entries:
     - https://orangesys.github.io/charts/adduser-0.1.15.tgz
     version: 0.1.15
   grafana:
-  - created: 2017-08-07T17:23:55.168200724+09:00
+  - created: 2017-08-07T17:26:18.608644946+09:00
     description: Chart for grafana
     digest: e438d0cea120a8fbf5e3a0de174b97a02722e82a472d0be22d8182d3b40b9228
     engine: gotpl
@@ -32,7 +32,7 @@ entries:
     urls:
     - https://orangesys.github.io/charts/grafana-0.1.18.tgz
     version: 0.1.18
-  - created: 2017-08-07T17:23:55.167910578+09:00
+  - created: 2017-08-07T17:26:18.608392739+09:00
     description: Chart for grafana
     digest: 44c70c75726735b7cdf9a3285e44f5ca74b84334a7fd97bf1971781dd4966ea0
     engine: gotpl
@@ -47,7 +47,7 @@ entries:
     - https://orangesys.github.io/charts/grafana-0.1.17.tgz
     version: 0.1.17
   influxdb:
-  - created: 2017-08-07T17:23:55.168548849+09:00
+  - created: 2017-08-07T17:26:18.608934621+09:00
     description: Chart for influxdb
     digest: b786e3ad4b352da6823ed8822c94bcdff2f43e911d406793281f6b2f5e1d732a
     engine: gotpl
@@ -62,7 +62,7 @@ entries:
     - https://orangesys.github.io/charts/influxdb-0.1.12.tgz
     version: 0.1.12
   kong:
-  - created: 2017-08-07T17:23:55.168776706+09:00
+  - created: 2017-08-07T17:26:18.609130601+09:00
     description: Chart for kong
     digest: 88bf9ab0b7ba74b22f8458cac179a1f6fd62ee4ae303e33efeb577b345ebbd89
     engine: gotpl
@@ -78,7 +78,7 @@ entries:
     version: 0.1.8
   kube-cert-manager:
   - apiVersion: v1
-    created: 2017-08-07T17:23:55.169007118+09:00
+    created: 2017-08-07T17:26:18.609322299+09:00
     description: Chart for kube-cert-manager
     digest: 9579fbfbeb636251bfc39add2dac4fb755cf6bede0040ec053b1c2fefb982ccb
     engine: gotpl
@@ -95,7 +95,7 @@ entries:
     version: 0.1.0
   kubebot:
   - apiVersion: v1
-    created: 2017-08-07T17:23:55.169249702+09:00
+    created: 2017-08-07T17:26:18.609495658+09:00
     description: Chart for kubebot
     digest: 1026340b2eff909c31b75e20a85f61d94e381de3a6cd8603961ac569194d2c54
     engine: gotpl
@@ -112,7 +112,23 @@ entries:
     - https://orangesys.github.io/charts/kubebot-0.1.1.tgz
     version: 0.1.1
   orangeapi:
-  - created: 2017-08-07T17:23:55.169884918+09:00
+  - created: 2017-08-07T17:26:18.610086691+09:00
+    description: orangesys backend api for kubernetes
+    digest: 751c45d59e6fe101febeb214136624792a590484e2dd428a3803cc7f914548bc
+    engine: gotpl
+    keywords:
+    - kubernetes
+    - backendapi
+    - helm
+    - kong
+    maintainers:
+    - email: gavin.zhou@gmail.com
+      name: gavin zhou
+    name: orangeapi
+    urls:
+    - https://orangesys.github.io/charts/orangeapi-0.2.8.tgz
+    version: 0.2.8
+  - created: 2017-08-07T17:26:18.609883667+09:00
     description: orangesys backend api for kubernetes
     digest: f9c9c74578938c96014a144ba0202e9111faba1c32147469b9758a8db757791d
     engine: gotpl
@@ -128,7 +144,7 @@ entries:
     urls:
     - https://orangesys.github.io/charts/orangeapi-0.2.7.tgz
     version: 0.2.7
-  - created: 2017-08-07T17:23:55.169456589+09:00
+  - created: 2017-08-07T17:26:18.609680123+09:00
     description: orangesys backend api for kubernetes
     digest: ebf29099b391d00c58efa48e21f9f405739db24856a858914a6ac7598a6f1463
     engine: gotpl
@@ -146,7 +162,7 @@ entries:
     version: 0.2.6
   orangesys-srv:
   - apiVersion: v1
-    created: 2017-08-07T17:23:55.170192987+09:00
+    created: 2017-08-07T17:26:18.61026845+09:00
     description: A Helm chart for Kubernetes
     digest: 551d068b60180e5272ef29a8e2e4eaca2fd22e63596fa36124ab3b5e58d9aeb9
     engine: gotpl
@@ -162,7 +178,7 @@ entries:
     - https://orangesys.github.io/charts/orangesys-srv-0.1.0.tgz
     version: 0.1.0
   postgres:
-  - created: 2017-08-07T17:23:55.170634641+09:00
+  - created: 2017-08-07T17:26:18.610458215+09:00
     description: Chart for postgres
     digest: 1b9bed9e455f210ec88ba5eee05eb2bae29dd4406ca27227a4e2587f69aa49e2
     engine: gotpl
@@ -177,7 +193,7 @@ entries:
     - https://orangesys.github.io/charts/postgres-0.1.5.tgz
     version: 0.1.5
   slack8s:
-  - created: 2017-08-07T17:23:55.175156306+09:00
+  - created: 2017-08-07T17:26:18.613660243+09:00
     description: Chart for slack8s
     digest: 5b8972067b5a948330545ae28f4fde070e4649a5c3e3921942be8ea212f3555b
     engine: gotpl
@@ -193,7 +209,7 @@ entries:
     - https://orangesys.github.io/charts/slack8s-0.1.4.tgz
     version: 0.1.4
   traefik:
-  - created: 2017-08-07T17:23:55.175458929+09:00
+  - created: 2017-08-07T17:26:18.613900495+09:00
     description: Chart for traefik
     digest: b58d984c9d02c532aaf6539ab7e22acacd8aeb08fb8afcee59836f9d0f25d0c8
     engine: gotpl
@@ -209,4 +225,4 @@ entries:
     urls:
     - https://orangesys.github.io/charts/traefik-0.1.5.tgz
     version: 0.1.5
-generated: 2017-08-07T17:23:55.167310187+09:00
+generated: 2017-08-07T17:26:18.607757323+09:00
