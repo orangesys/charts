@@ -4,9 +4,6 @@ metadata:
   name: {{ template "fullname" . }}
   labels:
     app: {{ template "fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
     version: "{{ .Values.imageTag }}"
 spec:
   replicas: {{default 1 .Values.replicaCount }}
