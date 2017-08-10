@@ -1,6 +1,6 @@
 description: A orangeapi chart for Kubernetes
 name: orangeapi
-version: 0.2.11
+version: 0.2.12
 description: orangesys backend api for kubernetes
 keywords:
   - kubernetes
