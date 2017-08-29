@@ -8,3 +8,4 @@ kubernetes-prometheus
 cert
 _*
 .DS_Store
+allnamespace/*
