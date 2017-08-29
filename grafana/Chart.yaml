@@ -1,6 +1,6 @@
 description: A Helm chart for Kubernetes
 name: grafana
-version: 0.1.18
+version: 0.1.21
 description: Chart for grafana
 keywords:
   - grafana
@@ -8,5 +8,3 @@ keywords:
 maintainers:
   - name: gavin zhou
     email: gavin.zhou@gmail.com
-engine: gotpl
-#  - https://github.com/Masterminds/sprig

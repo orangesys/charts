@@ -14,4 +14,3 @@ spec:
       targetPort: 3000
   selector:
     app: {{ template "fullname" . }}
-    version: "{{ .Values.imageTag }}"
