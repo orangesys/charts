@@ -7,7 +7,6 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
-    version: "{{ .Values.imageTag }}"
 spec:
   replicas: {{default 1 .Values.replicaCount }}
   template:
@@ -17,7 +16,6 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: "{{ .Release.Name }}"
         heritage: "{{ .Release.Service }}"
-        version: "{{ .Values.imageTag }}"
       annotations:
         "helm.sh/created": {{ .Release.Time.Seconds | quote }}
     spec:
