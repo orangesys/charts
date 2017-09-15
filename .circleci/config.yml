@@ -26,7 +26,6 @@ jobs:
       - run:
           command: |
             sudo kubectl cluster-info
-            sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/registry-creds/registry-creds-rc.yaml
             sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-cm.yaml
             sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-controller.yaml
             sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-svc.yaml
@@ -39,4 +38,5 @@ jobs:
           command: |
             sleep 60
             sudo kubectl get pods --all-namespaces
-            sudo linux-amd64/helm status
+            sudo linux-amd64/helm version
+            make test
