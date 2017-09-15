@@ -14,8 +14,11 @@ index:
 	@scripts/create-index.sh
 
 test:
+	@kubectl get pods --all-namespaces
 	@kubectl apply -f allnamespace/0-namespace.yaml
 	@helm version
-	@helm install --name grafana-mariadb --namespace apigateway mariadb
+	@helm install --name grafana --namespace apigateway mariadb
 	@kubectl get svc --namespace apigateway
-	
+	@helm install grafana
+	@kubectl get pods --all-namespaces
+
