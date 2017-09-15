@@ -33,9 +33,4 @@ jobs:
       - run:
           command: |
             sudo kubectl get pods --all-namespaces
-      - run:
-          command: |
-            make test
-      - run:
-          command: |
-            sudo kubectl get pods --all-namespaces
+            sudo helm status
