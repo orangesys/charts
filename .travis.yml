@@ -1,5 +1,8 @@
 sudo: required
 
+notifications:
+  email: false
+
 # This moves Kubernetes specific config files.
 env:
   global:
@@ -22,9 +25,7 @@ before_script:
 script:
 # Create example Redis deployment on Kubernetes.
 - kubectl cluster-info
-- juju expose kubernetes-master
-- juju status kubernetes-master
 - sleep 30
 - kubectl get pods --all-namespaces
-- which socat
 - helm version
+- make test

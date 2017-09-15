@@ -14,5 +14,5 @@ index:
 	@scripts/create-index.sh
 
 test:
-	@sudo kubectl apply -f allnamespace/0-namespace.yaml
-	@sudo linux-amd64/helm install --namespace apigateway mariadb
+	@kubectl apply -f allnamespace/0-namespace.yaml
+	@helm install --namespace apigateway mariadb
