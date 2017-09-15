@@ -16,4 +16,6 @@ index:
 test:
 	@kubectl apply -f allnamespace/0-namespace.yaml
 	@helm version
-	@helm install --namespace apigateway mariadb
+	@helm install --name grafana-mariadb --namespace apigateway mariadb
+	@kubectl get svc --namespace apigateway
+	
