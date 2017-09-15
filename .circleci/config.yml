@@ -20,10 +20,6 @@ jobs:
       - run:
           command: |
             sudo minikube update-context
-            sudo minikube addons list
-            sudo minikube addons enable kube-dns
-            sudo minikube addons disable dashboard
-            sudo minikube addons list
       - run:
           command: |
             JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until sudo kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
@@ -34,14 +30,11 @@ jobs:
           command: |
             wget https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz
             tar -zxf helm-v2.6.1-linux-amd64.tar.gz
-            sudo linux-amd64/helm init
+            sudo linux-amd64/helm init --net-host
       - run:
           command: |
-            sleep 60
-            sudo kubectl -n kube-system port-forward $(sudo kubectl -n kube-system get pod -l app=helm -o jsonpath='{.items[0].metadata.name}') 44134
-          background: true
-      - run:
-          command: |
+            sleep 30
             sudo kubectl get pods --all-namespaces
             sudo HELM_HOST=:44134 linux-amd64/helm version
-            make test
+            sudo kubectl apply -f allnamespace/0-namespace.yaml
+            sudo linux-amd64/helm install --namespace apigateway mariadb
