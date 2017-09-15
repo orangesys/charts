@@ -20,5 +20,6 @@ test:
 	@helm install --name grafana --namespace apigateway mariadb
 	@kubectl get svc --namespace apigateway
 	@helm install grafana
+	@sleep 10
 	@kubectl get pods --all-namespaces
 
