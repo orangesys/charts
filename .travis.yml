@@ -17,7 +17,7 @@ before_script:
 # Wait for Kubernetes to be up and ready.
 - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 - wget https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz && tar -zxf helm-v2.6.1-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/
-- helm init --net-host --node-selectors="app=helm"
+- helm init --net-host
 
 script:
 # Create example Redis deployment on Kubernetes.
