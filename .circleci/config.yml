@@ -37,5 +37,6 @@ jobs:
             sudo linux-amd64/helm init
       - run:
           command: |
+            sleep 60
             sudo kubectl get pods --all-namespaces
             sudo linux-amd64/helm status
