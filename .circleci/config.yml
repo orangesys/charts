@@ -36,5 +36,4 @@ jobs:
             sleep 30
             sudo kubectl get pods --all-namespaces
             sudo linux-amd64/helm version
-            sudo kubectl apply -f allnamespace/0-namespace.yaml
-            sudo linux-amd64/helm install --namespace apigateway mariadb
+            sudo HELM_HOST="localhost:44134" make test

@@ -7,6 +7,7 @@ notifications:
 env:
   global:
     - CHANGE_MINIKUBE_NONE_USER=true
+    - HELM_HOST="localhost:44134"
 
 before_script:
 # Download kubectl, which is a requirement for using minikube.
