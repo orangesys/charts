@@ -22,6 +22,7 @@ jobs:
             sudo minikube update-context
             sudo minikube addons list
             sudo minikube addons enable kube-dns
+            sudo minikube addons disable dashboard
             sudo minikube addons list
       - run:
           command: |
