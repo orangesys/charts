@@ -26,6 +26,10 @@ jobs:
       - run:
           command: |
             sudo kubectl cluster-info
+            sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/registry-creds/registry-creds-rc.yaml
+            sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-cm.yaml
+            sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-controller.yaml
+            sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/minikube/master/deploy/addons/kube-dns/kube-dns-svc.yaml
       - run:
           command: |
             wget https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz
