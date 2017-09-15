@@ -36,4 +36,4 @@ jobs:
           command: |
             sleep 30
             sudo kubectl get pods --all-namespaces
-            sudo make test
+            sudo HELM_HOST="localhost:44134" make test

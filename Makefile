@@ -13,7 +13,7 @@ package:
 index:
 	@scripts/create-index.sh
 
-test: HELM_HOST = localhost:44134
+test:
 	@kubectl apply -f allnamespace/0-namespace.yaml
 	@helm version
 	@helm install --namespace apigateway mariadb
