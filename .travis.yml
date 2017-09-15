@@ -19,9 +19,8 @@ before_script:
 
 script:
 # Create example Redis deployment on Kubernetes.
-- kubectl cluster-info 
-- kubectl run travis-example --image=redis
-- kubectl get pods --all-namespaces
+- kubectl cluster-info
 - sleep 30
+- kubectl get pods --all-namespaces
 - helm version
 
