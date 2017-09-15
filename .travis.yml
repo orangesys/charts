@@ -23,5 +23,5 @@ script:
 - sleep 30
 - kubectl get pods --all-namespaces
 - which socat
-- helm version
+- HELM_HOST=:44134 helm version
 
