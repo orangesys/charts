@@ -19,6 +19,7 @@ jobs:
       - run:
           command: |
             sudo minikube update-context
+            sudo minikube addons enable registry-creds
       - run:
           command: |
             JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until sudo kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
@@ -33,4 +34,4 @@ jobs:
       - run:
           command: |
             sudo kubectl get pods --all-namespaces
-            sudo helm status
+            sudo linux-amd64/helm status
