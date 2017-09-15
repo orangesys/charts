@@ -5,7 +5,7 @@ jobs:
     machine: true
     environment:
       CHANGE_MINIKUBE_NONE_USER: true
-      HELM_HOST: ":44134"
+      HELM_HOST: "localhost:44134"
     steps:
       - checkout
       - run:
@@ -35,6 +35,6 @@ jobs:
           command: |
             sleep 30
             sudo kubectl get pods --all-namespaces
-            sudo HELM_HOST=:44134 linux-amd64/helm version
+            sudo linux-amd64/helm version
             sudo kubectl apply -f allnamespace/0-namespace.yaml
             sudo linux-amd64/helm install --namespace apigateway mariadb
