@@ -32,6 +32,9 @@ jobs:
             sudo linux-amd64/helm init
       - run:
           command: |
+            sudo kubectl get pods --all-namespaces
+      - run:
+          command: |
             make test
       - run:
           command: |
