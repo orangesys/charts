@@ -24,4 +24,3 @@ script:
 - kubectl get pods --all-namespaces
 - which socat
 - HELM_HOST=:44134 helm version
-
