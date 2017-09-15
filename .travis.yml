@@ -22,7 +22,9 @@ before_script:
 script:
 # Create example Redis deployment on Kubernetes.
 - kubectl cluster-info
-- sleep 30
+- juju expose kubernetes-master
+- juju status kubernetes-master
+- sleep 10
 - kubectl get pods --all-namespaces
 - which socat
 - helm version
