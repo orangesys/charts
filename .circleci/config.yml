@@ -37,7 +37,11 @@ jobs:
             sudo linux-amd64/helm init
       - run:
           command: |
+            sudo kubectl -n kube-system port-forward $(kubectl -n kube-system get pod -l app=helm -o jsonpath='{.items[0].metadata.name}') 44134`
+          background: true
+      - run:
+          command: |
             sleep 60
             sudo kubectl get pods --all-namespaces
-            sudo linux-amd64/helm version
+            sudo HELM_HOST=:44134 linux-amd64/helm version
             make test
