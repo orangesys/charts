@@ -29,7 +29,7 @@ jobs:
           command: |
             wget https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz
             tar -zxf helm-v2.6.1-linux-amd64.tar.gz
-            linux-amd64/helm init
+            sudo linux-amd64/helm init
       - run:
           command: |
             sudo kubectl get pods --all-namespaces
