@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: {{ template "fullname" . }}
-        image: "asia.gcr.io/saas-orangesys-io/alpine-slack8s:{{.Values.imageTag}}"
+        image: "asia.gcr.io/saas-orangesys-io/slack8s:{{.Values.imageTag}}"
         imagePullPolicy: Always
         env:
         - name: SLACK_TOKEN
