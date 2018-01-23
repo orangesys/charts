@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - i.orangesys.io
-    secretName: i-orangesys-io
+    secretName: 201712-i-orangesys-io
   rules:
   - host:
     http:
