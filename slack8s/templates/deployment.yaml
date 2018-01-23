@@ -35,5 +35,10 @@ spec:
               name: {{ template "fullname" . }}
               key: slack-channel
       - name: kube-proxy
-        image: "asia.gcr.io/saas-orangesys-io/kubectl-proxy:1.4.0"
-        imagePullPolicy: Always
+        image: "gcr.io/google_containers/hyperkube:v1.7.2"
+        imagePullPolicy: IfNotPresent
+        command:
+          - "/hyperkube"
+        args:
+          - "kubectl"
+          - "proxy"
